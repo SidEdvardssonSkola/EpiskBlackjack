@@ -1,0 +1,14 @@
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\bin\Debug\net8.0\EpiskBlackjack.exe
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\bin\Debug\net8.0\EpiskBlackjack.deps.json
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\bin\Debug\net8.0\EpiskBlackjack.runtimeconfig.json
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\bin\Debug\net8.0\EpiskBlackjack.dll
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\bin\Debug\net8.0\EpiskBlackjack.pdb
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.AssemblyInfoInputs.cache
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.AssemblyInfo.cs
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.csproj.CoreCompileInputs.cache
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.dll
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\refint\EpiskBlackjack.dll
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.pdb
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\EpiskBlackjack.genruntimeconfig.cache
+C:\Users\sid.edvardsson\source\repos\EpiskBlackjack\EpiskBlackjack\obj\Debug\net8.0\ref\EpiskBlackjack.dll
