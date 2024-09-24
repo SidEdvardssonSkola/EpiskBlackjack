@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EpiskBlackjack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dac2977bf222b2f5425419d37e794fdcc30b3ad1")]
 [assembly: System.Reflection.AssemblyProductAttribute("EpiskBlackjack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EpiskBlackjack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

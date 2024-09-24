@@ -294,25 +294,41 @@ namespace EpiskBlackjack
 
 
 
-
+        //Om man har valt spelläge 0 körs denna kod innan varje runda
         void satsa()
         {
             string svar;
 
             Console.WriteLine("Hur mycket pengar vill du satsa från " + minSatsning.ToString() + " till " + pengar.ToString());
+
+
+
+            //While loop som ser till att man ger ett giltigt svar
             svar = Console.ReadLine();
             giltigtSvar = float.TryParse(svar, out satsadePengar);
+
             while (giltigtSvar == false)
             {
+
                 Console.WriteLine("Du måste ge ett giltigt svar");
                 svar = Console.ReadLine();
                 giltigtSvar = float.TryParse(svar, out satsadePengar);
+
             }
+
+
+
+            //En clamp så man inte kan satsa mer en man har eller mindre en man får
             satsadePengar = Math.Clamp(satsadePengar, minSatsning, pengar);
+
             Console.WriteLine();
             Console.WriteLine("Du har satsat " + satsadePengar + " pengar");
+
+            //Gör så att man behöver satsa mer efter varje runda
             minSatsningMultiplikator += 0.05f;
             minSatsning = MathF.Round(minSatsning * minSatsningMultiplikator);
+
+            //Tar bort pengar och lägger till det i penga-poolen
             pengar -= satsadePengar;
         }
 
@@ -324,6 +340,7 @@ namespace EpiskBlackjack
 
 
 
+        //Main
         static void Main(string[] args)
         {
             string svar;
@@ -334,6 +351,8 @@ namespace EpiskBlackjack
             int dealerVinster = 0;
             int harVunnit = 0;
             bool spel = true;
+
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Välkommen till episk blackjack");
             Console.WriteLine("Vill du köra klassiskt, Skriv 0");
@@ -341,11 +360,16 @@ namespace EpiskBlackjack
             Console.WriteLine("Vill du köra episkt läge, skriv 2");
 
             svar = Console.ReadLine();
+            //While loop som ser till att man ger ett giltigt svar
             while (svar != "0" && svar != "1" && svar != "2")
             {
+
                 Console.WriteLine("Du måste ge ett giltigt svar ('0', '1' eller '2')");
                 svar = Console.ReadLine();
+
             }
+
+            //Om man svarar 0 (klassiskt läge)
             if (svar == "0")
             {
                 spelLäge = "0";
@@ -354,6 +378,8 @@ namespace EpiskBlackjack
                 Console.ReadLine();
                 p.satsa();
             }
+
+            //Om man svarar 1 (oändligt läge)
             else if (svar == "1")
             {
                 spelLäge = "1";
@@ -361,6 +387,8 @@ namespace EpiskBlackjack
                 Console.WriteLine("(Tryck enter för att fortsätta)");
                 Console.ReadLine();
             }
+
+            //Om man svarar något annat (2 aka episkt läge)
             else
             {
                 spelLäge = "2";
@@ -369,21 +397,30 @@ namespace EpiskBlackjack
                 Console.ReadLine();
             }
 
+
+
+
+
+            //spel är variabeln som bestämmer om man får fortsätta spela eller inte
             while (spel)
             {
 
-
+                //Kallar på spelar-funktionen
                 p.spelarensTur();
 
-                //slutliga resultat
+                //visar resultaten från spelarens tur
+                //om man fått mer en 21 poäng blir texten röd
                 if (p.spelarPoäng > 21)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                 }
+                //annars blir den grön
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                 }
+
+                //Skriver ens poäng
                 Console.WriteLine("du fick totalt " + p.spelarPoäng + " poäng");
                 Console.ForegroundColor = ConsoleColor.White;
 
@@ -392,8 +429,9 @@ namespace EpiskBlackjack
                 //Nu är det dealerns tur😨
                 p.dealernsTur();
 
-                Console.WriteLine("");
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Blue;
+                //variabeln "dealernskort" är "jag fick" plus en lista på dealerns kort
                 Console.WriteLine(p.dealernsKort);
                 Console.WriteLine("Det blir " + p.dealerpoäng + " poäng");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -401,6 +439,8 @@ namespace EpiskBlackjack
 
                 Thread.Sleep(1000);
 
+                //Kollar resultaten och ser vem som vunnit
+                //När variabeln "harVunnit" är 0 har man förlorat, när den är 1 har man vunnit och när den är 2 är det oavgjort
                 if (p.dealerpoäng > 21)
                 {
                     if (p.spelarPoäng > 21)
@@ -459,115 +499,162 @@ namespace EpiskBlackjack
 
 
 
+                //Om man kör klassiskt läge kommer denna kod köras innan loopen början om (mest betting grejer)
                 if (spelLäge == "0")
                 {
                     vinster += 1;
+
+                    //Om man vunnit
                     if (harVunnit == 1)
                     {
-                        Console.WriteLine();
                         p.pengar += (p.satsadePengar * 2);
+
+                        Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Grattis! du vann");
+
                         Console.WriteLine("Du har vunnit " + (p.satsadePengar * 2) + " pengar och har nu " + p.pengar + " totalt.");
                         Console.ForegroundColor = ConsoleColor.White;
+
                         p.satsadePengar = 0;
+
+                        //Om man kan fortsätta köra
                         if (p.pengar > p.minSatsning)
                         {
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                             p.satsa();
                         }
+                        //Om man har mindre pengar en bettinggränsen
                         else
                         {
                             spel = false;
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Ojdå! det ser ut som att du inte har nog med pengar för att fortsätta");
+
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("Du klarade dig till runda " + vinster);
+
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                         }
                     }
+
+
+
+                    //Om man har förlorat
                     else if (harVunnit == 0)
                     {
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Ojdå, du förlorade och har nu " + p.pengar + " pengar");
                         Console.ForegroundColor = ConsoleColor.White;
+
                         p.satsadePengar = 0;
+
+                        //Om man kan fortsätta köra
                         if (p.pengar > p.minSatsning)
                         {
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                             p.satsa();
                         }
+                        //Om man har mindre pengar en bettinggränsen
                         else
                         {
                             spel = false;
+
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Ojdå! det ser ut som att du inte har nog med pengar för att fortsätta");
+
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("Du klarade dig till runda " + vinster);
+
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                         }
                     }
+
+
+
+                    //Om det blivit oavgjort
                     else
                     {
-                        Console.WriteLine();
                         p.pengar += p.satsadePengar - p.extraSatsning;
                         p.satsadePengar = 0;
+
                         Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine();
                         Console.WriteLine("Du har fått tillbaka dina pengar och har nu " + p.pengar);
                         Console.ForegroundColor = ConsoleColor.White;
+
+                        //Om man kan fortsätta köra
                         if (p.pengar > p.minSatsning)
                         {
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                             p.satsa();
                         }
+                        //Om man har mindre pengar en bettinggränsen
                         else
                         {
                             spel = false;
+
                             Console.WriteLine();
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Ojdå! det ser ut som att du inte har nog med pengar för att fortsätta");
+
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("Du klarade dig till runda " + vinster);
+
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine("(Tryck enter för att fortsätta)");
                             Console.ReadLine();
                         }
                     }
                 }
+
+
+
+
+
+
+                //Om man kör oändligt läge körs den här koden istället
                 else if (spelLäge == "1")
                 {
+                    //Om man vunnit
                     if (harVunnit == 1)
                     {
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Grattis! du vann");
+
                         Console.ForegroundColor = ConsoleColor.White;
                         vinster += 1;
                         Console.WriteLine("Just nu har du " + vinster + " vinster och jag har " + dealerVinster);
+
                         Console.WriteLine("(Tryck enter för att fortsätta)");
                         Console.ReadLine();
                     }
+                    //Om man förlorat
                     else if (harVunnit == 0)
                     {
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Ojdå, du förlorade");
+
                         Console.ForegroundColor = ConsoleColor.White;
                         dealerVinster += 1;
                         Console.WriteLine("Just nu har du " + vinster + " vinster och jag har " + dealerVinster);
+
                         Console.WriteLine("(Tryck enter för att fortsätta)");
                         Console.ReadLine();
                     }
+                    //Om det blivit oavgjort
                     else
                     {
                         Console.WriteLine("Just nu har du " + vinster + " vinster och jag har " + dealerVinster);
@@ -575,31 +662,48 @@ namespace EpiskBlackjack
                         Console.ReadLine();
                     }
                 }
+
+
+
+
+
+
+                //Om man kör episkt läge körs den här koden
                 else
                 {
+                    //Om man vunnit
                     if (harVunnit == 1)
                     {
                         Console.WriteLine("Grattis! du vann (Tryck enter för att fortsätta)");
                         vinster += 1;
                         Console.ReadLine();
                     }
+                    //Om man förlorat
                     else if (harVunnit == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine();
                         Console.WriteLine("Hoppsan! du förlorade");
+
                         spel = false;
+
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Du vann " + vinster + " gånger utan att förlora, häftigt!");
+
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                     }
+                    //Om det blivit oavgjort
                     else
                     {
                         Console.WriteLine("Eftersom det blev oavgjort fortsätter det som vanligt, men du fick ingen vinst (Tryck enter för att fortsätta)");
                         Console.ReadLine();
                     }
                 }
+
+
+
+                //blandakort är en funktion som lägger tillbaka alla kort i korthögen
                 p.blandaKort();
             }
         }
